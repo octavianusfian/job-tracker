@@ -30,7 +30,7 @@ const SearchForm = () => {
     const jobStatus = formData.get("jobStatus") as string;
 
     const params = new URLSearchParams();
-    params.app("search", search);
+    params.set("search", search);
     params.set("jobStatus", jobStatus);
 
     router.push(`${pathName}?${params.toString()}`);
