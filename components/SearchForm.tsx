@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { JobStatus } from "@/utils/types";
+import { JobStatus, JobMode } from "@/utils/types";
 import { FormEvent } from "react";
 
 const SearchForm = () => {
@@ -20,7 +20,8 @@ const SearchForm = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") || "";
-  const jobStatus = searchParams.get("jobStatus") || "all";
+  const jobStatus = searchParams.get("jobStatus") || "All";
+  const jobMode = searchParams.get("jobMode") || "All";
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,16 +29,18 @@ const SearchForm = () => {
 
     const search = formData.get("search") as string;
     const jobStatus = formData.get("jobStatus") as string;
+    const jobMode = formData.get("jobMode") as string;
 
     const params = new URLSearchParams();
     params.set("search", search);
     params.set("jobStatus", jobStatus);
+    params.set("jobMode", jobMode);
 
     router.push(`${pathName}?${params.toString()}`);
   };
   return (
     <form
-      className="bg-muted grid sm:grid-cols-2 md:grid-cols-3 gap-4 rounded-lg mb-16 p-8"
+      className="bg-muted grid sm:grid-cols-2 md:grid-cols-4 gap-4 rounded-lg mb-16 p-8"
       onSubmit={handleSubmit}
     >
       <Input
@@ -52,14 +55,28 @@ const SearchForm = () => {
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {["all", ...Object.values(JobStatus)].map((jobStatus) => (
+          {["All", ...Object.values(JobStatus)].map((jobStatus) => (
             <SelectItem key={jobStatus} value={jobStatus}>
               {jobStatus}
             </SelectItem>
           ))}
         </SelectContent>
       </Select>
-      <Button type="submit">Search Job</Button>
+      <Select name="jobMode" defaultValue={jobMode}>
+        <SelectTrigger className="w-full bg-white">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {["All", ...Object.values(JobMode)].map((jobMode) => (
+            <SelectItem key={jobMode} value={jobMode}>
+              {jobMode}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Button type="submit" className="cursor-pointer">
+        Search Job
+      </Button>
     </form>
   );
 };

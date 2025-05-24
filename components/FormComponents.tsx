@@ -18,9 +18,10 @@ import { Input } from "./ui/input";
 type CustomFormFieldProps = {
   name: string;
   control: Control<any>;
+  placeholder?: string;
 };
 
-export function CustomFormField({ name, control }: CustomFormFieldProps) {
+export function CustomFormField({ name, control, placeholder }: CustomFormFieldProps) {
   return (
     <FormField
       control={control}
@@ -29,7 +30,7 @@ export function CustomFormField({ name, control }: CustomFormFieldProps) {
         <FormItem>
           <FormLabel className="capitalize">{name}</FormLabel>
           <FormControl>
-            <Input {...field} className="bg-white" />
+            <Input {...field} className="bg-white" placeholder={placeholder} />
           </FormControl>
           <FormMessage />
         </FormItem>

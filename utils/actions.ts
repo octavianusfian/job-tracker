@@ -38,6 +38,7 @@ export async function createJobAction(
 type GetAllJobsAction = {
   search?: string;
   jobStatus?: string;
+  jobMode?: string;
   page?: number;
   limit?: number;
 };
@@ -45,6 +46,7 @@ type GetAllJobsAction = {
 export async function getAllJobsAction({
   search,
   jobStatus,
+  jobMode,
   page = 1,
   limit = 10,
 }: GetAllJobsAction): Promise<{
@@ -78,10 +80,17 @@ export async function getAllJobsAction({
       };
     }
 
-    if (jobStatus && jobStatus !== "all") {
+    if (jobStatus && jobStatus !== "All") {
       whereClause = {
         ...whereClause,
         status: jobStatus,
+      };
+    }
+
+    if (jobMode && jobMode !== "All") {
+      whereClause = {
+        ...whereClause,
+        mode: jobMode,
       };
     }
 
@@ -175,9 +184,9 @@ export async function updateJobAction(
 }
 
 export async function getStatsAction(): Promise<{
-  pending: number;
-  interview: number;
-  declined: number;
+  Pending: number;
+  Interview: number;
+  Declined: number;
 }> {
   const userId = authenticateAndRedirect();
   // just to show Skeleton
@@ -198,9 +207,9 @@ export async function getStatsAction(): Promise<{
     }, {} as Record<string, number>);
 
     const defaultStats = {
-      pending: 0,
-      declined: 0,
-      interview: 0,
+      Pending: 0,
+      Declined: 0,
+      Interview: 0,
       ...statsObject,
     };
     return defaultStats;

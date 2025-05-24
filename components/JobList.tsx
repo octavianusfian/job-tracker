@@ -9,13 +9,16 @@ const JobList = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") || "";
-  const jobStatus = searchParams.get("jobStatus") || "all";
+  const jobStatus = searchParams.get("jobStatus") || "All";
+  const jobMode = searchParams.get("jobMode") || "All";
   const pageNumber = Number(searchParams.get("page")) || 1;
 
   const { data, isPending } = useQuery({
-    queryKey: ["jobs", search, jobStatus, pageNumber],
-    queryFn: () => getAllJobsAction({ search, jobStatus, page: pageNumber }),
+    queryKey: ["jobs", search, jobStatus, jobMode, pageNumber],
+    queryFn: () =>
+      getAllJobsAction({ search, jobStatus, jobMode, page: pageNumber }),
   });
+
 
   const count = data?.count || 0;
   const page = data?.page || 0;

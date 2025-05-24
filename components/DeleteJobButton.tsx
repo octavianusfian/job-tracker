@@ -1,6 +1,5 @@
 import { Button } from "./ui/button";
-import { Badge } from "./ui/badge";
-import JobInfo from "./JobInfo";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteJobAction } from "@/utils/actions";
 import { toast } from "sonner";
@@ -28,8 +27,10 @@ const DeleteJobButton = ({ id }: { id: string }) => {
       onClick={() => {
         mutate(id);
       }}
+      variant={"destructive"}
+      className="cursor-pointer"
     >
-      {isPending ? "deleting..." : "delete"}
+      {isPending ? "Deleting..." : "Delete"}
     </Button>
   );
 };

@@ -62,9 +62,21 @@ const CreateJobForm = () => {
       >
         <h2 className="capitalize font-semibold text-4xl mb-6">add job</h2>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 items-start">
-          <CustomFormField name="position" control={form.control} />
-          <CustomFormField name="company" control={form.control} />
-          <CustomFormField name="location" control={form.control} />
+          <CustomFormField
+            name="position"
+            placeholder="Full-stack developer"
+            control={form.control}
+          />
+          <CustomFormField
+            name="company"
+            placeholder="Unilever"
+            control={form.control}
+          />
+          <CustomFormField
+            name="location"
+            placeholder="Jakarta"
+            control={form.control}
+          />
 
           <CustomFormSelect
             name="status"
@@ -81,7 +93,7 @@ const CreateJobForm = () => {
           />
 
           <Button
-            className="self-end capitalize"
+            className="self-end capitalize cursor-pointer"
             type="submit"
             disabled={isPending}
           >
