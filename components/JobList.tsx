@@ -4,21 +4,28 @@ import { useSearchParams } from "next/navigation";
 import { getAllJobsAction } from "@/utils/actions";
 import { useQuery } from "@tanstack/react-query";
 import ComplexButtonContainer from "./ComplexButtonContainer";
+import SortingDate, { SortingType } from "./SortingDate";
 
 const JobList = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("search") || "";
   const jobStatus = searchParams.get("jobStatus") || "All";
+  const sorting = (searchParams.get("sorting") || "desc") as SortingType;
   const jobMode = searchParams.get("jobMode") || "All";
   const pageNumber = Number(searchParams.get("page")) || 1;
 
   const { data, isPending } = useQuery({
-    queryKey: ["jobs", search, jobStatus, jobMode, pageNumber],
+    queryKey: ["jobs", search, jobStatus, jobMode, pageNumber, sorting],
     queryFn: () =>
-      getAllJobsAction({ search, jobStatus, jobMode, page: pageNumber }),
+      getAllJobsAction({
+        search,
+        jobStatus,
+        jobMode,
+        sorting,
+        page: pageNumber,
+      }),
   });
-
 
   const count = data?.count || 0;
   const page = data?.page || 0;
@@ -32,7 +39,12 @@ const JobList = () => {
   return (
     <>
       <div className="flex items-center justify-between mb-8">
-        <h2 className="text-xl font-semibold capitalize">{count} jobs found</h2>
+        <div className="flex gap-4 items-center">
+          <h2 className="text-xl font-semibold capitalize">
+            {count} jobs found
+          </h2>
+          <SortingDate />
+        </div>
         {totalPages > 1 && (
           <ComplexButtonContainer currentPage={page} totalPages={totalPages} />
         )}

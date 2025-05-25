@@ -7,7 +7,13 @@ export default function Home() {
   return (
     <main>
       <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6">
-        <Image src={Logo2} alt="logo" />
+        <Image
+          src={Logo2}
+          alt="logo"
+          width={200}
+          height={100}
+          className="h-[100px] object-cover"
+        />
       </header>
       <section
         className="max-w-6xl mx-auto px-4 sm:px-8 h-screen -mt-20 grid lg:grid-cols-[1fr_400px]

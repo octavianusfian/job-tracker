@@ -41,6 +41,7 @@ type GetAllJobsAction = {
   jobMode?: string;
   page?: number;
   limit?: number;
+  sorting?: "asc" | "desc";
 };
 
 export async function getAllJobsAction({
@@ -49,6 +50,7 @@ export async function getAllJobsAction({
   jobMode,
   page = 1,
   limit = 10,
+  sorting = "desc",
 }: GetAllJobsAction): Promise<{
   jobs: JobType[];
   count: number;
@@ -101,7 +103,7 @@ export async function getAllJobsAction({
       skip,
       take: limit,
       orderBy: {
-        createdAt: "desc",
+        createdAt: sorting,
       },
     });
 
