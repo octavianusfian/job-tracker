@@ -8,6 +8,7 @@ import {
   JobMode,
   createAndEditJobSchema,
   CreateAndEditJobType,
+  JobPriority,
 } from "@/utils/types";
 
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ const CreateJobForm = () => {
       location: "",
       status: JobStatus.Pending,
       mode: JobMode.FullTime,
+      priority: JobPriority.Medium,
     },
   });
 
@@ -52,6 +54,8 @@ const CreateJobForm = () => {
   });
 
   function onSubmit(values: CreateAndEditJobType) {
+    console.log(values);
+    
     mutate(values);
   }
   return (
@@ -90,6 +94,13 @@ const CreateJobForm = () => {
             control={form.control}
             labelText="job mode"
             items={Object.values(JobMode)}
+          />
+
+          <CustomFormSelect
+            name="priority"
+            control={form.control}
+            labelText="job priority"
+            items={Object.values(JobPriority)}
           />
 
           <Button

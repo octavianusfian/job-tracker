@@ -8,6 +8,7 @@ import {
   JobMode,
   createAndEditJobSchema,
   CreateAndEditJobType,
+  JobPriority,
 } from "@/utils/types";
 
 import { Button } from "@/components/ui/button";
@@ -15,11 +16,7 @@ import { Form } from "@/components/ui/form";
 
 import { CustomFormField, CustomFormSelect } from "./FormComponents";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
-import {
-  createJobAction,
-  getSingleJobAction,
-  updateJobAction,
-} from "@/utils/actions";
+import { getSingleJobAction, updateJobAction } from "@/utils/actions";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 function EditJobForm({ jobId }: { jobId: string }) {
@@ -57,6 +54,7 @@ function EditJobForm({ jobId }: { jobId: string }) {
       location: data?.location || "",
       status: (data?.status as JobStatus) || JobStatus.Pending,
       mode: (data?.mode as JobMode) || JobMode.FullTime,
+      priority: (data?.priority as JobPriority) || JobPriority.Medium,
     },
   });
 
@@ -96,10 +94,16 @@ function EditJobForm({ jobId }: { jobId: string }) {
             labelText="job mode"
             items={Object.values(JobMode)}
           />
+          <CustomFormSelect
+            name="priority"
+            control={form.control}
+            labelText="job priority"
+            items={Object.values(JobPriority)}
+          />
 
           <Button
             type="submit"
-            className="self-end capitalize"
+            className="self-end capitalize cursor-pointer"
             disabled={isPending}
           >
             {isPending ? "updating..." : "edit job"}

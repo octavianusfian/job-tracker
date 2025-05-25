@@ -13,15 +13,25 @@ const JobList = () => {
   const jobStatus = searchParams.get("jobStatus") || "All";
   const sorting = (searchParams.get("sorting") || "desc") as SortingType;
   const jobMode = searchParams.get("jobMode") || "All";
+  const jobPriority = searchParams.get("jobPriority") || "All";
   const pageNumber = Number(searchParams.get("page")) || 1;
 
   const { data, isPending } = useQuery({
-    queryKey: ["jobs", search, jobStatus, jobMode, pageNumber, sorting],
+    queryKey: [
+      "jobs",
+      search,
+      jobStatus,
+      jobMode,
+      jobPriority,
+      pageNumber,
+      sorting,
+    ],
     queryFn: () =>
       getAllJobsAction({
         search,
         jobStatus,
         jobMode,
+        jobPriority,
         sorting,
         page: pageNumber,
       }),

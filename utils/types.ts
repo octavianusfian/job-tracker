@@ -10,6 +10,7 @@ export type JobType = {
   location: string;
   status: string;
   mode: string;
+  priority: string;
 };
 
 export enum JobStatus {
@@ -18,12 +19,16 @@ export enum JobStatus {
   Declined = "Declined",
 }
 
-
-
 export enum JobMode {
   FullTime = "Full-time",
   PartTime = "Part-time",
   Internship = "Internship",
+}
+
+export enum JobPriority {
+  Low = "Low",
+  Medium = "Medium",
+  High = "High",
 }
 
 export const createAndEditJobSchema = z.object({
@@ -38,6 +43,7 @@ export const createAndEditJobSchema = z.object({
   }),
   status: z.nativeEnum(JobStatus),
   mode: z.nativeEnum(JobMode),
+  priority: z.nativeEnum(JobPriority),
 });
 
 export type CreateAndEditJobType = z.infer<typeof createAndEditJobSchema>;

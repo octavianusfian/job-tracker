@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { JobStatus, JobMode } from "@/utils/types";
+import { JobStatus, JobMode, JobPriority } from "@/utils/types";
 import { FormEvent } from "react";
 
 const SearchForm = () => {
@@ -22,6 +22,7 @@ const SearchForm = () => {
   const search = searchParams.get("search") || "";
   const jobStatus = searchParams.get("jobStatus") || "All";
   const jobMode = searchParams.get("jobMode") || "All";
+  const jobPriority = searchParams.get("jobPriority") || "All";
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,11 +31,13 @@ const SearchForm = () => {
     const search = formData.get("search") as string;
     const jobStatus = formData.get("jobStatus") as string;
     const jobMode = formData.get("jobMode") as string;
+    const jobPriority = formData.get("jobPriority") as string;
 
     const params = new URLSearchParams();
     params.set("search", search);
     params.set("jobStatus", jobStatus);
     params.set("jobMode", jobMode);
+    params.set("jobPriority", jobPriority);
 
     router.push(`${pathName}?${params.toString()}`);
   };
@@ -70,6 +73,18 @@ const SearchForm = () => {
           {["All", ...Object.values(JobMode)].map((jobMode) => (
             <SelectItem key={jobMode} value={jobMode}>
               {jobMode}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Select name="jobPriority" defaultValue={jobPriority}>
+        <SelectTrigger className="w-full bg-white">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {["All", ...Object.values(JobPriority)].map((jobPriority) => (
+            <SelectItem key={jobPriority} value={jobPriority}>
+              {jobPriority}
             </SelectItem>
           ))}
         </SelectContent>

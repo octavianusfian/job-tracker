@@ -27,6 +27,7 @@ export async function createJobAction(
         clerkId: userId,
       },
     });
+    console.log(job);
 
     return job;
   } catch (error) {
@@ -39,6 +40,7 @@ type GetAllJobsAction = {
   search?: string;
   jobStatus?: string;
   jobMode?: string;
+  jobPriority?: string;
   page?: number;
   limit?: number;
   sorting?: "asc" | "desc";
@@ -48,6 +50,7 @@ export async function getAllJobsAction({
   search,
   jobStatus,
   jobMode,
+  jobPriority,
   page = 1,
   limit = 10,
   sorting = "desc",
@@ -93,6 +96,13 @@ export async function getAllJobsAction({
       whereClause = {
         ...whereClause,
         mode: jobMode,
+      };
+    }
+
+    if (jobPriority && jobPriority !== "All") {
+      whereClause = {
+        ...whereClause,
+        priority: jobPriority,
       };
     }
 
