@@ -55,14 +55,24 @@ const JobList = () => {
           </h2>
           <SortingDate />
         </div>
-        {totalPages > 1 && (
-          <ComplexButtonContainer currentPage={page} totalPages={totalPages} />
-        )}
+        <div className="hidden md:block">
+          {totalPages > 1 && (
+            <ComplexButtonContainer
+              currentPage={page}
+              totalPages={totalPages}
+            />
+          )}
+        </div>
       </div>
       <div className="grid md:grid-cols-2 gap-8">
         {jobs.map((job) => (
           <JobCard key={job.id} job={job} />
         ))}
+      </div>
+      <div className="flex justify-center md:hidden my-10 ">
+        {totalPages > 1 && (
+          <ComplexButtonContainer currentPage={page} totalPages={totalPages} />
+        )}
       </div>
     </>
   );
