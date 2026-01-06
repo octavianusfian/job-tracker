@@ -23,7 +23,7 @@ const JobCard = ({ job }: { job: JobType }) => {
   return (
     <Card className="bg-muted">
       <CardHeader className="flex justify-between">
-        <div>
+        <div className="space-y-1">
           <CardTitle>{job.position}</CardTitle>
           <CardDescription>{job.company}</CardDescription>
         </div>
